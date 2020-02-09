@@ -1,4 +1,22 @@
 #!/bin/python3
+class Stack:
+     def __init__(self):
+         self.items = []
+
+     def isEmpty(self):
+         return self.items == []
+
+     def push(self, item):
+         self.items.append(item)
+
+     def pop(self):
+         return self.items.pop()
+
+     def peek(self):
+         return self.items[len(self.items)-1]
+
+     def size(self):
+         return len(self.items)
 
 
 def validate_html(html):
@@ -16,6 +34,31 @@ def validate_html(html):
     # then process these html tags using the balanced parentheses algorithm from the book
     # the main difference between your code and the book's code will be that you will have to keep track of not just the 3 types of parentheses,
     # but arbitrary text located between the html tags
+    s = Stack()
+    tags = _extract_tags(html)
+    balanced = True
+    index = 0
+    while index < len(tags) and balanced:
+        symbol = tags[index] 
+        if symbol[1] != '/':
+            s.push(symbol)
+        else:
+            if s.isEmpty():
+                balanced = False
+            else:
+                top = s.pop()
+                if symbol[2:len(symbol)] != top[1:len(top)]:
+                        balanced = False
+        index = index + 1
+    if balanced and s.isEmpty():
+        return True
+    else:
+        return False
+
+def matches(open,close):
+    opens = "([{"
+    closers = ")]}"
+    return opens.index(open) == closers.index(close)
 
 
 def _extract_tags(html):
@@ -29,3 +72,18 @@ def _extract_tags(html):
     >>> _extract_tags('Python <strong>rocks</strong>!')
     ['<strong>', '</strong>']
     '''
+    tags = []
+    for i in range(len(html) - 1):
+        temp_word = ""
+        print(html[i])
+        if html[i] == '<':
+            counter = i
+            print(counter)
+            while html[counter] != ">":
+                temp_word += html[counter]
+                counter += 1
+            tags.append(temp_word + '>')
+    return tags
+
+print(validate_html('<body><header>Python</header> <strong>rocks</strong>!</body>'))
+
