@@ -79,11 +79,11 @@ def _extract_tags(html):
         if html[i] == '<':
             counter = i
             print(counter)
-            while html[counter] != ">":
+            while html[counter] != ">" and counter <  len(html) - 1:
                 temp_word += html[counter]
                 counter += 1
             tags.append(temp_word + '>')
     return tags
 
-print(validate_html('<body><header>Python</header> <strong>rocks</strong>!</body>'))
+print(validate_html('<body><header>Python</header> <strong>rocks</strong>!</body'))
 
