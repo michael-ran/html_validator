@@ -55,11 +55,6 @@ def validate_html(html):
     else:
         return False
 
-def matches(open,close):
-    opens = "([{"
-    closers = ")]}"
-    return opens.index(open) == closers.index(close)
-
 
 def _extract_tags(html):
     '''
@@ -75,15 +70,12 @@ def _extract_tags(html):
     tags = []
     for i in range(len(html) - 1):
         temp_word = ""
-        print(html[i])
         if html[i] == '<':
             counter = i
-            print(counter)
             while html[counter] != ">" and counter <  len(html) - 1:
                 temp_word += html[counter]
                 counter += 1
             tags.append(temp_word + '>')
     return tags
 
-print(validate_html('<body><header>Python</header> <strong>rocks</strong>!</body'))
 
