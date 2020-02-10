@@ -68,6 +68,8 @@ def _extract_tags(html):
     ['<strong>', '</strong>']
     '''
     tags = []
+    if html.find('>') == -1:
+        return tags
     for i in range(len(html) - 1):
         temp_word = ""
         if html[i] == '<':
