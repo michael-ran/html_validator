@@ -34,23 +34,21 @@ def validate_html(html):
     # then process these html tags using the balanced parentheses algorithm from the book
     # the main difference between your code and the book's code will be that you will have to keep track of not just the 3 types of parentheses,
     # but arbitrary text located between the html tags
-    s = Stack()
+    s = [] 
     tags = _extract_tags(html)
     balanced = True
-    index = 0
-    while index < len(tags) and balanced:
+    for index in range(len(tags)):
         symbol = tags[index] 
         if symbol[1] != '/':
-            s.push(symbol)
+            s.append(symbol)
         else:
-            if s.isEmpty():
+            if s == []:
                 balanced = False
             else:
                 top = s.pop()
                 if symbol[2:len(symbol)] != top[1:len(top)]:
                         balanced = False
-        index = index + 1
-    if balanced and s.isEmpty():
+    if balanced and s == []:
         return True
     else:
         return False
